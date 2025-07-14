@@ -24,11 +24,11 @@ const OtpComponent: React.FC<Props> = ({ count, onOTPComplete, emailVerfied }) =
     if (timer === 0) setIsResendEnabled(true);
   }, [timer, isResendEnabled]);
 
-  const handleClick = (index: number) => (event: React.MouseEvent<HTMLInputElement>) => {
+  const handleClick = () => (event: React.MouseEvent<HTMLInputElement>) => {
     event.currentTarget.setSelectionRange(1, 1);
   };
 
-  const handlePaste = (index: number) => (event: React.ClipboardEvent<HTMLInputElement>) => {
+  const handlePaste = () => (event: React.ClipboardEvent<HTMLInputElement>) => {
     const pastedData = event.clipboardData.getData('Text').slice(0, count);
     if (!isNaN(Number(pastedData))) {
       const splitData = pastedData.split('');
@@ -84,8 +84,9 @@ const OtpComponent: React.FC<Props> = ({ count, onOTPComplete, emailVerfied }) =
       });
       setTimer(30);
       setIsResendEnabled(false);
-    } catch (err: any) {
-      toast.error(err?.response?.data?.message || 'Unexpected error');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
+      toast.error(error?.response?.data?.message || 'Unexpected error');
     }
   };
 
@@ -110,10 +111,10 @@ const OtpComponent: React.FC<Props> = ({ count, onOTPComplete, emailVerfied }) =
                 ref={(el) => {
                   inputRefs.current[index] = el;
                 }}
-                onPaste={handlePaste(index)}
+                onPaste={handlePaste()}
                 inputMode="numeric"
                 autoComplete="one-time-code"
-                onClick={handleClick(index)}
+                onClick={handleClick()}
                 className="w-8 h-8 text-slate-700 text-center border border-slate-300 focus:border-blue-500 hover:border-blue-500 outline-none rounded-lg text-lg font-semibold mx-1"
                 type="text"
                 onKeyUp={handleKeyUp(index)}
