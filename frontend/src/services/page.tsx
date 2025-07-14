@@ -18,6 +18,13 @@ interface OtpPayload {
   otp: string;
 }
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  // Add more fields as per your backend response
+}
+
 // Optional generic type for API response structure
 interface ApiResponse<T> {
   success: boolean;
@@ -27,19 +34,19 @@ interface ApiResponse<T> {
 }
 
 // Helper functions with generic typing
-const safePost = async <T = any>(url: string, data?: any): Promise<T> => {
+const safePost = async <T = unknown>(url: string, data?: unknown): Promise<T> => {
   try {
     const res = await axios.post<T>(`${BASE_URL}${url}`, data, {
       withCredentials: true,
     });
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<any>;
+    const error = err as AxiosError<ApiResponse<unknown>>;
     throw error.response?.data || { message: error.message };
   }
 };
 
-const safeGet = async <T = any>(url: string): Promise<T> => {
+const safeGet = async <T = unknown>(url: string): Promise<T> => {
   try {
     const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     const res = await axios.get<T>(`${BASE_URL}${url}`, {
@@ -48,7 +55,7 @@ const safeGet = async <T = any>(url: string): Promise<T> => {
     });
     return res.data;
   } catch (err) {
-    const error = err as AxiosError<any>;
+    const error = err as AxiosError<ApiResponse<unknown>>;
     throw error.response?.data || { message: error.message };
   }
 };
@@ -67,4 +74,4 @@ export const resendOtp = async (email: string) =>
   await safePost<ApiResponse<null>>('/resend-otp', { email });
 
 export const getProfile = async () =>
-  await safeGet<{ user: any }>('/get-profile');
+  await safeGet<{ user: User }>('/get-profile');

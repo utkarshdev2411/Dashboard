@@ -31,8 +31,9 @@ export const ProfileProvider = ({ children }: { children: React.ReactNode }) => 
       console.log('Profile fetched:', res);
       setUser(res?.user || null);
       setError(null);
-    } catch (err: any) {
-      setError(err.message || "Failed to fetch profile.");
+    } catch (err: unknown) {
+      const error = err as Error;
+      setError(error.message || "Failed to fetch profile.");
       setUser(null);
     } finally {
       setLoading(false);
