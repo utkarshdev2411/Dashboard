@@ -6,14 +6,11 @@ import TableComponent from "@/components/table.component";
 import AnalyticsChart from "@/components/analytic.component";
 import { Product } from "@/types/page";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import Sidebar from "@/components/sidebar.component";
 import { useProfile } from "@/context/page";
-import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 
 export default function DashboardPage() {
-  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);

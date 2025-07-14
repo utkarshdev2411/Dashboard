@@ -86,8 +86,9 @@ const LoginPage = () => {
                 localStorage.setItem('token', response.token);
                 router.push('/dashboard');
             }
-        } catch (err: any) {
-            toast.error(err?.response?.data?.message || err.message || 'Unexpected error');
+        } catch (err: unknown) {
+            const error = err as { response?: { data?: { message?: string } }; message?: string };
+            toast.error(error?.response?.data?.message || error.message || 'Unexpected error');
         }
     };
     return (
@@ -97,7 +98,7 @@ const LoginPage = () => {
                     <div className="absolute w-32 h-32 rounded-full bg-blue-100 -top-10 -left-10 z-0 opacity-60" />
                     <div className="absolute w-24 h-24 rounded-full bg-indigo-100 top-3/4 -right-10 z-0 opacity-60" />
 
-                    <div className="w-1/2 flex items-center justify-center relative bg-transparent ml-6 hidden lg:flex">
+                    <div className="w-1/2 items-center justify-center relative bg-transparent ml-6 hidden lg:flex">
                         <div className="absolute inset-0 rounded-3xl z-0" style={{
                             background: 'linear-gradient(135deg, #6EE7B7 0%, #3B82F6 50%, #9333EA 100%)',
                             filter: 'blur(0px)',
@@ -136,7 +137,7 @@ const LoginPage = () => {
 
                             <div className="social-buttons flex justify-center w-full gap-4 mb-6">
                                 <button className="group cursor-pointer flex items-center justify-center py-2.5 px-4 border border-slate-200 rounded-xl text-white hover:shadow-md transition-all duration-200 bg-white hover:border-blue-300 w-full">
-                                    <img className="w-5 h-5 mr-2" src="https://www.pngmart.com/files/22/Google-PNG-File.png" alt="Google" />
+                                    <Image className="w-5 h-5 mr-2" src="https://www.pngmart.com/files/22/Google-PNG-File.png" alt="Google" width={20} height={20} />
                                     <span className="text-slate-600 text-sm font-medium group-hover:text-blue-600">Sign in with Google</span>
                                 </button>
                             </div>

@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useProfile } from "@/context/page";
-import { use, useEffect } from "react";
 
 export default function LandingPage() {
   const router = useRouter();
