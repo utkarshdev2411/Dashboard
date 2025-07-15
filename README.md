@@ -8,7 +8,7 @@ The **Dashboard** project is a full-stack web application featuring:
 - **UI**: Built using `shadcn/ui` and Tailwind CSS
 
 ## 🌐 Live Deployments
-- 🔗 Frontend: [Vercel Deployment](https://dashboard-ktgd2xz10-utkarshs-projects-c8d8c56e.vercel.app)
+- 🔗 Frontend: [Vercel Deployment](https://dashboard-seven-orpin-78.vercel.app/)
 - 🔗 Backend: [Azure Deployment](https://dashboardbackend-hkeed8fudre3eyc3.centralindia-01.azurewebsites.net)
 - 🔗 Repository: [Github Repository](https://github.com/utkarshdev2411/Dashboard)
 
